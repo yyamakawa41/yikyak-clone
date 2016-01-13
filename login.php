@@ -2,34 +2,38 @@
 	include 'inc/db_connect.php';
 
 	if(isset($_POST['userName'])){
-		// print $_POST['email'];
-		// print $_POST['password'];
+        // print $_POST['email'];
+        // print $_POST['password'];
+        $username = $_POST['userName'];
+        $password = $_POST['password'];
 
-		$hashed_password = md5($_POST['password']."yohsuke's little secret");
-		// print $hashed_password;
-		// exit;
+        $hashed_password = md5($_POST['password']."freddy's little secret");
+        // print $hashed_password;
+        // exit;
+        $username =  $_POST['userName'];
 
+        //USER SUBMITTED SOMETHING.
+        //NOW WHAT?
+        //Check to see if this user is in the DB!!
+        $results = DB::query("SELECT * FROM users 
+            WHERE username = '" . $username ."' OR email = '" . $username . "'");
 
-		//USER SUBMITTED SOMETHING.
-		//NOW WHAT?
-		//Check to see if this user is in the DB!!
-		$result = DB::query("SELECT * FROM users 
-			WHERE username = '" . $_POST['userName']."' 
-				AND password = '" . $hashed_password . "'");
-		
+        foreach($results as $result){
+            $hash = $result['password'];
+            $uid = $result['uid'];
+        }
+        
+        $pass_verify = password_verify($password, $hash);
 
-		// print '<pre>';
-		// print_r($result);
-		// exit;
-		if(mysql_num_rows($result) == 1){
-			//We have a match!!
-			$_SESSION['username'] = $_POST['userName'];
-			header('Location: /index.php');
-		}else{
-			//we do not have a match. Goodbye.
-			header('Location: http://local-phpland.com/login.php?result=failure');
-		}
-	}
+        if($pass_verify){
+            $_SESSION['username'] = $username;
+            $_SESSION['uid'] = $uid;
+            header('Location: index.php');
+            exit;
+        }else{
+            header('Location: login.php?login=failure');
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,3 +72,5 @@
 
 </body>
 </html>
+
+
