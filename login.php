@@ -7,7 +7,7 @@
         $username = $_POST['userName'];
         $password = $_POST['password'];
 
-        $hashed_password = md5($_POST['password']."freddy's little secret");
+        $hashed_password = md5($_POST['password']."yohsuke's little secret");
         // print $hashed_password;
         // exit;
         $username =  $_POST['userName'];
