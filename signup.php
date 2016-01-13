@@ -2,10 +2,33 @@
 	include 'inc/db_connect.php';
 
 	if(isset($_POST['userName'])){
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$username = $_POST['userName'];
+		$password = $_POST['password'];
+
+	$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+	try{
+		DB::insert('users', array(
+			// 'uid' => '',
+			'name' => $name,
+			'email' => $email,
+			'username' => $username,
+			'password' => $hashed_password,
+			'status' => 1
+		));
+	}catch(MeekroDBException $e){
+		header('Location: /signup.php?error=yes');
+		exit;
+	}
+
+	$_SESSION['username'] =$username;
+	$_SESSION['uid'] = DB::insertID();
+	header('Location: /?callback=registration');
 		// print $_POST['email'];
 		// print $_POST['password'];
 
-		$hashed_password = md5($_POST['password']."yohsuke's little secret");
 		// print $hashed_password;
 		// exit;
 
@@ -61,7 +84,7 @@
 				<input class="form-control" type="text" name="userName" placeholder="Username...">
 			</div>
 			<div class="row">
-				<input class="form-control" type="password" name="name" placeholder="Password...">
+				<input class="form-control" type="password" name="password" placeholder="Password...">
 			</div>
 			<div class="row">
 				<input class="col-xs-3 col-xs-offset-3 btn btn-success" type="submit" value="Register">

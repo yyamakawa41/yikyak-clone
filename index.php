@@ -17,7 +17,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Fred's Yik Yak</title>
+	<title>Yohsuke's Yik Yak</title>
 	<link rel="stylesheet" href="assets/compass/css/style.css">
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	<script src="bootstrap/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
 </head>
 <body>
 
-	<?php print '<h1> &nbsp And Australia was just like, "WTF MATE?!?!?!?!?!"</h1>'; ?>
+	<?php print "<h1> &nbsp You Sound Like You're from London</h1>"; ?>
 	
 </body>
 </html>
