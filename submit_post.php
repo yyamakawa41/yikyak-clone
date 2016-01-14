@@ -1,4 +1,5 @@
 <?php
+
 	include 'inc/db_connect.php';
 
 	if(isset($_POST['newPost'])){
